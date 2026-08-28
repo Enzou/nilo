@@ -155,6 +155,20 @@ p{margin:0 0 1.05em}
 .others li:last-child a{border-bottom:0}
 .others a:hover{color:var(--volt)}
 
+
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 28px;font-size:.95rem}
+.tbl th{font-family:var(--data);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 16px 10px 0;border-bottom:1px solid var(--ink);vertical-align:bottom}
+.tbl td{padding:14px 16px 14px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.tbl td:first-child{font-family:var(--display);font-size:.95rem;font-weight:500;letter-spacing:-.01em;width:33%;padding-right:24px}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+@media(max-width:620px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:auto}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:14px 0}
+  .tbl td{border:0;padding:0}
+  .tbl td:first-child{width:auto;margin-bottom:5px}
+}
+
 /* videos */
 .split{display:grid;gap:36px}
 @media(min-width:900px){.split{grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}}
@@ -314,7 +328,7 @@ p{margin:0 0 1.05em}
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Cómo trabajamos</span>
-        <h2>Cuatro etapas, siempre en este orden</h2>
+        <h2>Cuatro etapas, siempre en orden</h2>
       </div>
       <div class="track" id="track"></div>
     </div>
@@ -358,8 +372,8 @@ p{margin:0 0 1.05em}
   <section class="page-head">
     <div class="wrap">
       <span class="eyebrow">Tratamientos</span>
-      <h1>Seis motivos de consulta</h1>
-      <p class="lede">Si lo tuyo no está en esta lista, escribime igual. Si no es lo mío, te digo a quién conviene que consultes.</p>
+      <h1>Motivos de consulta</h1>
+      <p class="lede">Estos son los motivos que veo con más frecuencia. Si lo tuyo no está en la lista, escribime igual: si no es lo mío, te digo a quién conviene que consultes.</p>
     </div>
   </section>
   <section class="section">
@@ -479,7 +493,7 @@ p{margin:0 0 1.05em}
     <div class="wrap">
       <span class="eyebrow">Sobre mí</span>
       <h1>Nilo Rodriguez</h1>
-      <p class="lede">Licenciado en kinesiología. Consultorio propio en Montevideo, con turnos de una sola persona por vez.</p>
+      <p class="lede">Kinesiólogo, especialista en migrañas y cefaleas tensionales. Consultorio propio en Montevideo, con turnos de una sola persona por vez.</p>
     </div>
   </section>
   <section class="section">
@@ -487,11 +501,13 @@ p{margin:0 0 1.05em}
       <div>
         <p>Trabajo hace [X] años en rehabilitación musculoesquelética. Atiendo en consultorio propio en [barrio]: no hay sala llena ni sesiones compartidas, y la hora que reservás es tuya de punta a punta.</p>
         <p>Me interesa que entiendas lo que te pasa. Buena parte de la primera consulta es explicarte el problema con palabras que puedas repetirle a otro, porque un paciente que entiende su lesión se recupera mejor que uno que solo cumple indicaciones.</p>
+        <p>Trabajo con formación en movilidad y stretching, y combino el abordaje kinésico con las herramientas de la Medicina Tradicional China cuando el caso lo pide.</p>
         <p>Cuando algo excede lo que puedo resolver, derivo. Prefiero decirte que necesitás otro profesional antes que estirar un tratamiento que no te va a servir.</p>
       </div>
       <ul class="facts">
         <li><span>Título</span><span>Lic. en Kinesiología, [Universidad]</span></li>
-        <li><span>Formación</span><span>Terapia manual ortopédica · Punción seca</span></li>
+        <li><span>Especialidad</span><span>Migrañas y cefaleas tensionales</span></li>
+        <li><span>Formación</span><span>Movilidad y stretching · Medicina Tradicional China</span></li>
         <li><span>Atención</span><span>Consultorio en [dirección] y domicilio</span></li>
         <li><span>Sesión</span><span>45 a 60 minutos, individual</span></li>
         <li><span>Cobertura</span><span>Particular · [mutualistas / seguros]</span></li>
@@ -600,7 +616,7 @@ const T = {
       ["p","En la práctica combino movilizaciones articulares, técnicas de tejido blando y liberación miofascial. El objetivo no es que te sientas bien una hora, sino devolverle rango de movimiento a una articulación que lo perdió y bajar la sensibilidad de una zona que está protegiéndose de más."],
       ["p","La terapia manual sola rara vez alcanza. Funciona como puerta de entrada: abre una ventana de movilidad y menos dolor, y esa ventana se aprovecha con ejercicio para que el cambio se sostenga."],
       ["h2","Para quién es"],
-      ["ul",["Dolor articular o muscular que limita movimientos cotidianos","Rigidez después de una inmovilización o un yeso","Contracturas que vuelven siempre al mismo lugar","Dolor de cabeza de origen cervical"]],
+      ["ul",["Dolor articular o muscular que limita movimientos cotidianos","Rigidez después de una inmovilización o un yeso","Contracturas que vuelven siempre al mismo lugar","Dolor de cabeza de origen cervical y tensional","Dolor postural causado por patologías y síndromes tendinosos"]],
       ["pull","Si el dolor mejora en la camilla pero vuelve a los dos días, el problema no está en el tejido: está en lo que hacés el resto de la semana."],
       ["h2","Qué pasa en la sesión"],
       ["p","Empezamos revisando cómo venís desde la última vez. Después, entre 20 y 30 minutos de trabajo manual sobre la zona y las estructuras relacionadas. Los últimos minutos son para los ejercicios que te llevás: te los muestro, los hacés delante mío y corrijo antes de que te vayas."]
@@ -679,15 +695,61 @@ const T = {
       ["pull","Una asimetría de fuerza del quince por ciento entre piernas no se siente. Se mide."],
       ["h2","Trabajo conjunto"],
       ["p","Si ya tenés entrenador o profe, el informe está pensado para que él pueda usarlo. La idea no es agregar una voz más, sino darle datos a quien ya te programa el entrenamiento."]
+    ]},
+  "mtc":{
+    title:"Medicina Tradicional China",
+    short:"Acupuntura, moxibustión, ventosas y tuina integradas al trabajo kinésico.",
+    claim:"Un sistema médico milenario integrado a la biomecánica y la rehabilitación física.",
+    meta:"Se integra al plan kinésico dentro de la misma sesión.",
+    body:[
+      ["p","La Medicina Tradicional China (MTC) es un sistema médico milenario que aborda la salud de forma integral y holística, entendiendo al cuerpo humano como un todo interconectado donde la mente, las emociones y la estructura física influyen de manera constante."],
+      ["p","En consultorio integro la sabiduría de la MTC con la biomecánica y la rehabilitación física. Mientras que desde la kinesiología se evalúan músculos, articulaciones y movimiento, la MTC ayuda a identificar desequilibrios energéticos y funcionales que pueden estar perpetuando dolores crónicos, inflamaciones o bloqueos en la recuperación."],
+      ["p","El cuerpo cuenta con canales de energía (meridianos) que conectan órganos y tejidos. La obstrucción o debilidad del flujo de esta energía (Qi) suele manifestarse como dolor o tensión muscular."],
+      ["p","Se busca restaurar el equilibrio térmico, metabólico y emocional del organismo para acelerar los procesos de regeneración tisular utilizando las herramientas que brinda la MTC."],
+      ["h2","Técnicas"],
+      ["table",{head:["Técnica","Objetivo principal en la sesión"],rows:[
+        ["Acupuntura y auriculoterapia","Estimulación de puntos específicos para modular el dolor, reducir el estrés y relajar el sistema nervioso."],
+        ["Moxibustión","Aplicación de calor terapéutico en puntos clave para mejorar la circulación y aliviar rigideces frías."],
+        ["Ventosas (cupping)","Desactivación de puntos gatillo, liberación miofascial y favorecimiento del drenaje linfático."],
+        ["Tuina (masaje terapéutico)","Manipulación física para desbloquear canales, mejorar la movilidad articular y relajar la musculatura."]
+      ]}]
+    ]},
+  "migranas":{
+    title:"Migrañas y cefaleas tensionales",
+    short:"Abordaje especializado para bajar la frecuencia y la intensidad del dolor de cabeza.",
+    claim:"Reducir la frecuencia e intensidad de los dolores de cabeza de origen tensional, cervicogénico o crónico.",
+    meta:"Combina abordaje kinésico y herramientas de Medicina Tradicional China.",
+    body:[
+      ["p","Abordaje especializado para reducir la frecuencia e intensidad de los dolores de cabeza de origen tensional, cervicogénico o crónico. Combinamos terapia manual, liberación miofascial y reeducación postural para aliviar la tensión acumulada en el cuello, los hombros y el cráneo. También se utilizan las herramientas que brinda la Medicina Tradicional China."],
+      ["h2","Para quién es"],
+      ["ul",["Dolor de cabeza crónico de origen cervical","Cefalea tensional","Migraña acompañada de bruxismo o disfunción de la ATM (articulación temporomandibular)","Migrañas y cefaleas crónicas"]]
+    ]},
+  "embarazo":{
+    title:"Cuidado físico en el embarazo",
+    short:"Ejercicio adaptado, terapia manual y educación postural durante la gestación.",
+    claim:"Adaptar el cuerpo a los cambios biomecánicos, posturales y hormonales del embarazo.",
+    meta:"A partir del segundo trimestre o por recomendación médica.",
+    body:[
+      ["p","Tratamiento enfocado en adaptar el cuerpo de la gestante a los profundos cambios biomecánicos, posturales y hormonales que ocurren durante el embarazo. Mediante ejercicios terapéuticos adaptados, terapia manual y educación postural, ayudamos a prevenir y tratar las disfunciones más comunes de esta etapa."],
+      ["h2","Qué tratamos y prevenimos"],
+      ["ul",[
+        "<b>Dolores musculoesqueléticos.</b> Alivio de lumbalgias, ciática, pubalgia y tensión dorsal.",
+        "<b>Salud del suelo pélvico.</b> Prevención de la incontinencia urinaria y preparación de la musculatura para el esfuerzo del parto.",
+        "<b>Movilidad y postura.</b> Optimización de la alineación pélvica y flexibilización de estructuras para facilitar la acomodación del bebé.",
+        "<b>Circulación y retorno venoso.</b> Manejo de la edematización y la pesadez en piernas mediante movilización y drenaje linfático kinésico."
+      ]],
+      ["h2","A tener en cuenta"],
+      ["p","Las sesiones se realizan a partir del segundo trimestre o por recomendación médica, con movimientos adaptados a las necesidades y los requerimientos de cada paciente."]
     ]}
 };
-const ORDEN = ["terapia-manual","deportiva","post-quirurgica","columna","postural","rendimiento"];
+const ORDEN = ["terapia-manual","mtc","migranas","columna","deportiva","post-quirurgica","embarazo","postural","rendimiento"];
+const DESTACADOS_HOME = ["terapia-manual","mtc","migranas","columna","deportiva","embarazo"];
 
 const PROCESO = [
-  ["Evaluación","Una hora para entender tu historia, medir rangos y fuerza, y descartar lo que no es. Salís con un diagnóstico funcional claro."],
+  ["Evaluación","Entender tu historia, evaluar tu movilidad y tu dolencia, descartar lo que no es. Salís con un diagnóstico funcional claro."],
   ["Plan","Objetivos concretos y medibles, cantidad estimada de sesiones y qué vas a tener que hacer vos entre una y otra."],
-  ["Sesiones","Terapia manual y ejercicio terapéutico. Reevaluamos cada tres o cuatro sesiones y ajustamos el plan si hace falta."],
-  ["Alta y prevención","Te vas con una rutina de mantenimiento y con las señales que tenés que mirar para que no vuelva."]
+  ["Sesiones","Terapia manual, ejercicios y Medicina Tradicional China, con seguimiento constante del proceso de recuperación para ajustar el tratamiento en caso de que haga falta."],
+  ["Alta y recuperación","Te vas con una rutina de mantenimiento y con las señales que tenés que mirar para que no vuelva."]
 ];
 
 /* ════════ INSTAGRAM ════════
@@ -722,7 +784,7 @@ function cardHTML(k){
     <h3>${T[k].title}</h3><p>${T[k].short}</p>
     <span class="go">Ver tratamiento →</span></a>`;
 }
-document.getElementById('home-cards').innerHTML  = ORDEN.map(cardHTML).join('');
+document.getElementById('home-cards').innerHTML  = DESTACADOS_HOME.map(cardHTML).join('');
 document.getElementById('index-cards').innerHTML = ORDEN.map(cardHTML).join('');
 
 document.getElementById('f-motivo').innerHTML =
@@ -817,6 +879,7 @@ function renderDetalle(slug){
     if(b[0]==='h2')   return `<h2>${b[1]}</h2>`;
     if(b[0]==='ul')   return `<ul>${b[1].map(i=>`<li>${i}</li>`).join('')}</ul>`;
     if(b[0]==='pull') return `<blockquote class="pull">${b[1]}</blockquote>`;
+    if(b[0]==='table') return `<table class="tbl"><thead><tr>${b[1].head.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${b[1].rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
     return '';
   }).join('');
   document.getElementById('d-others').innerHTML = ORDEN.filter(k=>k!==slug)
