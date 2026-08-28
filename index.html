@@ -57,6 +57,7 @@ p{margin:0 0 1.05em}
 .btn:hover{background:#0040D6;border-color:#0040D6}
 .btn.ghost{background:none;color:var(--ink);border-color:var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:#fff}
+button.btn{font-family:var(--display)}
 .btn.sm{padding:9px 14px;font-size:.86rem;white-space:nowrap}
 .lg{display:none}
 @media(min-width:520px){.lg{display:inline}.sm-only{display:none}}
@@ -221,6 +222,8 @@ p{margin:0 0 1.05em}
 .facts li{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:.95rem}
 .facts span:first-child{font-family:var(--data);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
 .facts span:last-child{text-align:right}
+.facts a{text-decoration:none;border-bottom:1px solid var(--line)}
+.facts a:hover{color:var(--volt);border-bottom-color:var(--volt)}
 
 /* agendar */
 .contact{display:grid;gap:40px}
@@ -543,20 +546,21 @@ p{margin:0 0 1.05em}
           <select id="f-motivo"><option>Elegir…</option></select>
         </div>
         <div class="field"><label for="f-msg">Qué te pasa y desde cuándo</label><textarea id="f-msg"></textarea></div>
-        <a class="btn" href="#" onclick="return false">Enviar consulta</a>
-        <p class="form-note">Mockup — el formulario todavía no envía</p>
+        <button class="btn" onclick="enviarConsulta()">Enviar por WhatsApp</button>
+        <p class="form-note" id="f-aviso"></p>
+        <p class="form-note">Se abre WhatsApp con el mensaje ya escrito. No se envía nada solo.</p>
       </div>
       <div>
         <ul class="facts" style="border-top:1px solid var(--line)">
-          <li><span>WhatsApp</span><span>[teléfono]</span></li>
-          <li><span>Teléfono</span><span>[teléfono]</span></li>
-          <li><span>Email</span><span>[email]</span></li>
+          <li><span>WhatsApp</span><span><a data-wa="Hola Nilo, quería consultarte por un turno.">[teléfono]</a></span></li>
+          <li><span>Teléfono</span><span><a href="tel:+59899000000">[teléfono]</a></span></li>
+          <li><span>Email</span><span><a href="mailto:[email]">[email]</a></span></li>
           <li><span>Consultorio</span><span>[dirección], Montevideo</span></li>
           <li><span>Horario</span><span>Lunes a viernes, [horario]</span></li>
           <li><span>Domicilio</span><span>A coordinar según zona</span></li>
         </ul>
         <div class="actions" style="margin-top:26px">
-          <a class="btn" href="#" onclick="return false">Escribir por WhatsApp</a>
+          <a class="btn" data-wa="Hola Nilo, quería consultarte por un turno.">Escribir por WhatsApp</a>
         </div>
       </div>
     </div>
@@ -855,6 +859,57 @@ function playVideo(id, btn){
 function marcar(btn){
   document.querySelectorAll('.yt').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
 }
+
+
+/* ════════ WHATSAPP ════════
+   Click-to-chat: NO necesita la API de WhatsApp Business.
+   Poné el número en formato internacional, SOLO dígitos:
+   sin +, sin 0 inicial, sin espacios ni guiones.
+   Uruguay = 598. Ej.: 099 123 456  →  '59899123456'          */
+const WA_NUMERO = '59899536707';   // ← reemplazar por el de Nilo
+
+function waURL(mensaje){
+  return 'https://wa.me/' + WA_NUMERO + (mensaje ? '?text=' + encodeURIComponent(mensaje) : '');
+}
+
+function abrirWA(mensaje){
+  window.open(waURL(mensaje), '_blank', 'noopener');
+}
+
+/* Botón suelto "Escribir por WhatsApp" */
+function waDirecto(){
+  abrirWA('Hola Nilo, quería consultarte por un turno.');
+}
+
+/* Formulario → arma el mensaje y abre WhatsApp. Sin backend ni servidor de mail. */
+function enviarConsulta(){
+  const v = id => (document.getElementById(id).value || '').trim();
+  const nombre = v('f-nombre'), tel = v('f-tel'), msg = v('f-msg');
+  let motivo = v('f-motivo');
+  if(motivo === 'Elegir…') motivo = '';
+
+  const aviso = document.getElementById('f-aviso');
+  if(!nombre || !msg){
+    aviso.textContent = 'Completá al menos tu nombre y qué te pasa.';
+    document.getElementById(nombre ? 'f-msg' : 'f-nombre').focus();
+    return;
+  }
+  aviso.textContent = '';
+
+  const lineas = ['Hola Nilo, soy ' + nombre + '.'];
+  if(motivo) lineas.push('Motivo: ' + motivo + '.');
+  lineas.push(msg);
+  if(tel) lineas.push('Mi teléfono: ' + tel);
+
+  abrirWA(lineas.join('\n\n'));
+}
+
+/* Enlaces de contacto de la página Agendar */
+document.querySelectorAll('[data-wa]').forEach(a => {
+  a.href = waURL(a.dataset.wa || '');
+  a.target = '_blank';
+  a.rel = 'noopener';
+});
 
 /* ════════ ROUTER ════════ */
 const PAGES = {
